@@ -23,7 +23,7 @@ foreach ($mailbox in $mailboxes) {
         $city = ""
         $phone = "" 
 
-		# RÃ©Ã©criture de l'adresse pour harmonisation
+		# Selon le nom de l'antenne, on spécifie l'adresse de celle-ci.
         if ($user.Office.Contains("Siège administratif") -and $user.Department -ne "Aller vers")
         {
             $address = "Mission Locale du Pays de Brest - Siège Administratif"
@@ -64,6 +64,8 @@ foreach ($mailbox in $mailboxes) {
             $city = "Brest"
             $phone = "02 98 47 25 53" 
         }
+        # Cas des salariés présents sur deux antennes selon le jour de la semaine.
+        # Dans de tel cas, la syntaxe dans Entra ID est la suivante : "Nom_Antenne_1 (Jours_Antenne_1) / Nom_Antenne_2 (Jours_Antenne_2)"
         elseif ($user.Office.Contains("/"))
         {
 
@@ -144,6 +146,7 @@ foreach ($mailbox in $mailboxes) {
                 $phone = "$phone 02 98 16 14 27"
             }  
         }
+        # Cas spécifique des antennes CEJ et SEE
         elseif ($user.Department -ne $null -and ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE")))
         {
             if ($user.Department.Contains("CEJ"))
@@ -165,6 +168,7 @@ foreach ($mailbox in $mailboxes) {
                 $phone = "02 98 43 51 30" 
             }
         }
+        # Le reste concerne les antennes rurales
         else {
 
             $address = "Mission Locale du Pays de Brest"
@@ -219,6 +223,7 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
 		$signatureHTML = $signatureHTML.Replace("{City}", $city)
         $signatureHTML = $signatureHTML.Replace("{Phone}", $phone)
+        # Exclusion des téléphones mobiles pour les salariées qui en font la demande expresse
         if ($user.LastName.Contains("GLEVAREC") -or $user.LastName.Contains("MAHE")) {
             $signatureHTML = $signatureHTML.Replace("{MobilePhone}", "")
         }
@@ -226,40 +231,26 @@ foreach ($mailbox in $mailboxes) {
 		    $signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
         }
         
-
+        # Modification du logo pour les personnes dont le poste est financé par le FSE.
         if ($user.Department -eq "SEE" -or $user.LastName -eq "RAPICAULT" -or $user.LastName -eq "SEITE" -or $user.LastName -eq "VIALELLE") {
             $signatureHTML = $signatureHTML.Replace("BrestV2.png", "Brest_FSE.png")
             $signatureHTML = $signatureHTML.Replace('width="150"', 'width="300"')
             $signatureHTML = $signatureHTML.Replace('height="150"', 'height="200"')
         }
 
-
+        # ecriture de fichiers HTML pour vérification
         $filename = "C:\Users\AliceQUERIC\ARMLB\Pays de Brest - t5_informatique\Administration courante\Utilisateurs\Signatures emails\test_signatures\" + $user.firstname + "_" + $user.LastName + ".html"
         Out-File -FilePath $filename -InputObject $signatureHTML
 
-        if ($user.Title.Contains("ssionelle")) {
-            Write-Host "Erreur sur titre de " $user.LastName " : " $user.Title
-        }
-
+        # Selon l'itération, on regénère l'ensemble des signatures ou juste les perosnnes impactées par la génération souhaitée
         if ($user.Office -eq "SEE" -or $user.LastName -eq "RAPICAULT" -or $user.LastName -eq "SEITE" -or $user.LastName -eq "VIALELLE") {
             Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
         }
+        # Ou bien toutes les signatures mais ca risque de raler
         #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
-        
 
-
-        #Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
-        #Write-Host($signatureHTML)
-
-	    # Mise en place de la signature sur le compte
-	    #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
 
 	}
 }
-
-	#Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
-
-	# Mise en place de la signature sur le compte
-	#Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
 
 Disconnect-ExchangeOnline
