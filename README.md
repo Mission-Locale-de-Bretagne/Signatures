@@ -5,7 +5,7 @@ Liste des ML pour lesquelles l'ARMLB gère la génération des signatures mail (
 
 |ML         |Oui      |Non
 |---------|-------|-------|
-|22DIN||x                 |
+|22DIN|x                  |
 |22LAN||x                 |
 |22STB|x                  |
 |29BRE||x                 |
