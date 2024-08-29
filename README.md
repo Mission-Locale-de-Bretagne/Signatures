@@ -3,20 +3,22 @@ Repo contenant les divers éléments pour la génération des signatures mail de
 
 Liste des ML pour lesquelles l'ARMLB gère la génération des signatures mail (hors continuité de service) au 26/08/2024
 
-22DIN : Oui
-22LAN : Non
-22STB : Oui
-29BRE : Non
-29QUI : Oui
-29MOR : Oui
-35ARM : Oui
-35FOU : Non
-35RED : Non
-35STM : Oui
-35VIT : Oui
-35WEK : Non
-56AUR : Oui
-56PLO : Oui
-56PON : Oui
-56LOR : Oui
-56VAN : Oui
+|ML         |Oui      |Non
+|---------|-------|-------|
+|22DIN||x                 |
+|22LAN||x                 |
+|22STB|x                  |
+|29BRE||x                 |
+|29QUI|x                  |
+|29MOR|x                  |
+|35ARM|x                  |
+|35FOU||x                 |
+|35RED||x                 |
+|35STM|x                  |
+|35VIT|x                  |
+|35WEK||x                 |
+|56AUR|x                  |
+|56PLO|x                  |
+|56PON|x                  |
+|56LOR|x                  |
+|56VAN|x                  |
