@@ -1,5 +1,5 @@
 Repo contenant les divers éléments pour la génération des signatures mail de chacunces des structures
-#####################################################################################################
+#######################################################################
 
 Liste des ML pour lesquelles l'ARMLB gère la génération des signatures mail (hors continuité de service) au 26/08/2024
 
