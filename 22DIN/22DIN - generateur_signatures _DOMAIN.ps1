@@ -16,10 +16,9 @@ foreach ($mailbox in $mailboxes) {
     # Vérification qu'il s'agit bien d'un utilisateur
     if ($user.FirstName) { 
         # Réécriture de l'adresse pour harmonisation
-        if ($user.Company -eq "Mission Locale du Pays de Dinan") 
-            {
-
-            $building = "Immeuble .."
+        if ($user.company -eq "Mission Locale du Pays de Dinan")
+        {
+            #$building = "Immeuble .."
             $address = "Mission Locale du Pays de Dinan"
             $street = "5 Rue Gambetta"
             $postalcode = "22100"
@@ -35,12 +34,12 @@ foreach ($mailbox in $mailboxes) {
         $signatureHTML = $signatureHTML.Replace("{First name}", $user.FirstName) 
         $signatureHTML = $signatureHTML.Replace("{Last name}", $user.LastName) 
         $signatureHTML = $signatureHTML.Replace("{Title}", $user.Title) 
-        $signatureHTML = $signatureHTML.Replace("{Address}", $address)
+        $signatureHTML = $signatureHTML.Replace("{Address}", $user.company)
         $signatureHTML = $signatureHTML.Replace("{Building}", $building)
-        $signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-        $signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-        $signatureHTML = $signatureHTML.Replace("{City}", $city)  
-        $signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+        $signatureHTML = $signatureHTML.Replace("{Street}", $user.streetAddress) 
+        $signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+        $signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+        $signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
         $signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.MobilePhone)
 
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
