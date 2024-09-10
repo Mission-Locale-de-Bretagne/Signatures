@@ -31,16 +31,16 @@ foreach ($mailbox in $mailboxes) {
             continue
         }
         # Remplacement des tags dans le template par les valeurs correspondantes
-        $signatureHTML = $signatureHTML.Replace("{First name}", $user.FirstName) 
-        $signatureHTML = $signatureHTML.Replace("{Last name}", $user.LastName) 
-        $signatureHTML = $signatureHTML.Replace("{Title}", $user.Title) 
-        $signatureHTML = $signatureHTML.Replace("{Address}", $address)
-        $signatureHTML = $signatureHTML.Replace("{Building}", $building)
-        $signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-        $signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-        $signatureHTML = $signatureHTML.Replace("{City}", $city)  
-        $signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
-        $signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.MobilePhone)
+		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
+		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
+		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
+		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
+        $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
 
