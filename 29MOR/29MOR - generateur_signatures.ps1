@@ -32,15 +32,16 @@ foreach ($user in $users) {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
 			exit
         }
+		# Remplacement des tags dans le template par les valeurs correspondantes
 		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
         	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
-		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
-		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $usephone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 
 	} 
