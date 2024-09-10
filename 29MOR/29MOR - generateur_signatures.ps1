@@ -5,7 +5,7 @@ Connect-ExchangeOnline
 
 
 # Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "c.deunff@mlpm29.org" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
+$users = Get-User -Filter {UserPrincipalName -like "*@mlpm29.org" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 #$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
 
 # Chemin vers le template HTML
@@ -32,12 +32,11 @@ foreach ($user in $users) {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
 			exit
         }
-		# Remplacement des tags dans le template par les valeurs correspondantes
 		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
-        $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+        	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
 		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
 		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
 		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
