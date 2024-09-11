@@ -38,10 +38,10 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
         $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
-		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
-		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 
 	} 
