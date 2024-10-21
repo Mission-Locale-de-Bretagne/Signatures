@@ -4,7 +4,8 @@ Connect-ExchangeOnline
 
 
 # Cible le ou les utilisateurs concernÃ©s
-$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
+
+$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*.rapicault@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 #$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
 
 # Chemin vers le template HTML
@@ -232,22 +233,24 @@ foreach ($mailbox in $mailboxes) {
         }
         
         # Modification du logo pour les personnes dont le poste est financé par le FSE.
-        if ($user.Department -eq "SEE" -or $user.LastName -eq "RAPICAULT" -or $user.LastName -eq "SEITE" -or $user.LastName -eq "VIALELLE") {
-            $signatureHTML = $signatureHTML.Replace("BrestV2.png", "Brest_FSE.png")
+        if ($user.Department -eq "SEE" -or $user.LastName -eq "RAPICAULT" -or $user.LastName -eq "VERDES" -or $user.LastName -eq "SOUSSEING") {
+            $signatureHTML = $signatureHTML.Replace("BrestV2.png", "Brest_FSE_2.png")
             $signatureHTML = $signatureHTML.Replace('width="150"', 'width="300"')
             $signatureHTML = $signatureHTML.Replace('height="150"', 'height="200"')
         }
 
         # ecriture de fichiers HTML pour vérification
         $filename = "C:\Users\AliceQUERIC\ARMLB\Pays de Brest - t5_informatique\Administration courante\Utilisateurs\Signatures emails\test_signatures\" + $user.firstname + "_" + $user.LastName + ".html"
-        Out-File -FilePath $filename -InputObject $signatureHTML
+        #Out-File -FilePath $filename -InputObject $signatureHTML
 
         # Selon l'itération, on regénère l'ensemble des signatures ou juste les perosnnes impactées par la génération souhaitée
-        if ($user.Office -eq "SEE" -or $user.LastName -eq "RAPICAULT" -or $user.LastName -eq "SEITE" -or $user.LastName -eq "VIALELLE") {
-            Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
+        if ($user.LastName -eq "RAPICAULT") {
+            #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
+            Out-File -FilePath $filename -InputObject $signatureHTML
         }
         # Ou bien toutes les signatures mais ca risque de raler
         #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
+        #Out-File -FilePath $filename -InputObject $signatureHTML
 
 
 	}
