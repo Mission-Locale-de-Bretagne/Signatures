@@ -5,7 +5,7 @@ Connect-ExchangeOnline
 
 # Cible le ou les utilisateurs concernÃ©s
 
-$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*.rapicault@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
+$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 #$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
 
 # Chemin vers le template HTML
@@ -16,7 +16,6 @@ foreach ($mailbox in $mailboxes) {
     $user = Get-User -Identity $mailbox.UserPrincipalName | Select-Object FirstName, LastName, Title, Phone, MobilePhone, UserPrincipalName, StreetAddress, PostalCode, City, Office, Company, Department
 	$signatureHTML = $templateSignatureHTML 
 	# VÃ©rification qu'il s'agit bien d'un utilisateur
- 
 	if ($user.firstname -and $user.FirstName -ne "Scan" -and -not $user.FirstName.Contains("Compte administratif") -and -not $user.LastName.Contains("Reply") -and $user.FirstName -ne "Test") {
         $address = ""
         $street = ""
@@ -24,47 +23,50 @@ foreach ($mailbox in $mailboxes) {
         $city = ""
         $phone = "" 
 
-		# Selon le nom de l'antenne, on spécifie l'adresse de celle-ci.
-        if ($user.Office.Contains("Siège administratif") -and $user.Department -ne "Aller vers")
-        {
-            $address = "Mission Locale du Pays de Brest - Siège Administratif"
-            $street = "7 Rue Keravel - BP 71028"
-            $postalcode = "29210 "
-            $city = "Brest Cedex 1"
-            $phone = "02 98 43 51 00" 
+		# Selon le nom de l'antenne, on spécifie l'adresse de celle-ci. On exclue les situations avec antennes urbaines mixtes pour lesquelles on opère de la même façon que les antennes rurales.
+        if (-Not $user.Office.Contains("/")) {
+            if ($user.Office.Contains("Siège administratif") -and $user.Department -ne "Aller vers")
+            {
+                $address = "Mission Locale du Pays de Brest - Siège Administratif"
+                $street = "7 Rue Keravel - BP 71028"
+                $postalcode = "29210 "
+                $city = "Brest Cedex 1"
+                $phone = "02 98 43 51 00" 
+            }
+            elseif ($user.Office.Contains("Aller vers"))
+            {
+                $address = "Mission Locale du Pays de Brest - Antenne Aller Vers"
+                $street = "7 Rue Keravel"
+                $postalcode = "29200"
+                $city = "Brest"
+                $phone = "02 98 83 84 58" 
+            }
+            elseif ($user.Office.Contains("Jaurès"))
+            {
+                $address = "Mission Locale du Pays de Brest - Antenne Jaurès"
+                $street = "253 rue Jean Jaurès"
+                $postalcode = "29200"
+                $city = "Brest"
+                $phone = "02 98 41 06 90" 
+            }
+            elseif ($user.Office.Contains("Rive Droite"))
+            {
+                $address = "Mission Locale du Pays de Brest - Antenne Rive Droite"
+                $street = "45 rue Dupuy de Lôme"
+                $postalcode = "29200"
+                $city = "Brest"
+                $phone = "02 98 49 70 85" 
+            }
+            elseif ($user.Office.Contains("Bellevue"))
+            {
+                $address = "Mission Locale du Pays de Brest - Antenne Bellevue"
+                $street = "Place Napoléon III - CC B2"
+                $postalcode = "29200"
+                $city = "Brest"
+                $phone = "02 98 47 25 53" 
+            }
         }
-        elseif ($user.Office.Contains("Aller vers"))
-        {
-            $address = "Mission Locale du Pays de Brest - Antenne Aller Vers"
-            $street = "7 Rue Keravel"
-            $postalcode = "29200"
-            $city = "Brest"
-            $phone = "02 98 83 84 58" 
-        }
-        elseif ($user.Office.Contains("Jaurès"))
-        {
-            $address = "Mission Locale du Pays de Brest - Antenne Jaurès"
-            $street = "253 rue Jean Jaurès"
-            $postalcode = "29200"
-            $city = "Brest"
-            $phone = "02 98 41 06 90" 
-        }
-        elseif ($user.Office.Contains("Rive Droite"))
-        {
-            $address = "Mission Locale du Pays de Brest - Antenne Rive Droite"
-            $street = "45 rue Dupuy de Lôme"
-            $postalcode = "29200"
-            $city = "Brest"
-            $phone = "02 98 49 70 85" 
-        }
-        elseif ($user.Office.Contains("Bellevue"))
-        {
-            $address = "Mission Locale du Pays de Brest - Antenne Bellevue"
-            $street = "Place Napoléon III - CC B2"
-            $postalcode = "29200"
-            $city = "Brest"
-            $phone = "02 98 47 25 53" 
-        }
+
         # Cas des salariés présents sur deux antennes selon le jour de la semaine.
         # Dans de tel cas, la syntaxe dans Entra ID est la suivante : "Nom_Antenne_1 (Jours_Antenne_1) / Nom_Antenne_2 (Jours_Antenne_2)"
         elseif ($user.Office.Contains("/"))
@@ -111,7 +113,20 @@ foreach ($mailbox in $mailboxes) {
             elseif ($antenne_1.Contains("Chateaulin"))
             {
                 $postalcode = "$postalcode 02 98 16 14 27"
-            } 
+            }
+            elseif ($antenne_1.Contains("Bellevue"))
+            {
+                $postalcode = "$postalcode 02 98 47 25 53"
+            }
+            elseif ($antenne_1.Contains("Jaurès"))
+            {
+                $postalcode = "$postalcode 02 98 41 06 90"
+            }
+            elseif ($antenne_1.Contains("Rive Droite"))
+            {
+                $postalcode = "$postalcode 02 98 49 70 85"
+            }
+             
 
             $phone = "$antenne_2 ($jours_antenne_2) :"
             if ($antenne_2.Contains("Landerneau"))
@@ -145,7 +160,19 @@ foreach ($mailbox in $mailboxes) {
             elseif ($antenne_2.Contains("Chateaulin"))
             {
                 $phone = "$phone 02 98 16 14 27"
-            }  
+            } 
+            elseif ($antenne_2.Contains("Bellevue"))
+            {
+                $phone = "$phone 02 98 47 25 53"
+            }
+            elseif ($antenne_2.Contains("Jaurès"))
+            {
+                $phone = "$phone 02 98 41 06 90"
+            }
+            elseif ($antenne_2.Contains("Rive Droite"))
+            {
+                $phone = "$phone 02 98 49 70 85"
+            } 
         }
         # Cas spécifique des antennes CEJ et SEE
         elseif ($user.Department -ne $null -and ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE")))
@@ -244,8 +271,9 @@ foreach ($mailbox in $mailboxes) {
         #Out-File -FilePath $filename -InputObject $signatureHTML
 
         # Selon l'itération, on regénère l'ensemble des signatures ou juste les perosnnes impactées par la génération souhaitée
-        if ($user.LastName -eq "RAPICAULT") {
-            #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
+        #if ($user.LastName -eq "VERDES") {
+        if ($user.Department -eq "SEE") {
+            Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
             Out-File -FilePath $filename -InputObject $signatureHTML
         }
         # Ou bien toutes les signatures mais ca risque de raler
