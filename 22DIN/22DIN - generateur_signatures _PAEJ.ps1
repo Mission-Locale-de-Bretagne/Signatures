@@ -1,13 +1,13 @@
-﻿# Nécessite que le roaming soit désactivé :
+﻿﻿# Nécessite que le roaming soit désactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
 Connect-ExchangeOnline
 
 # Cible le ou les utilisateurs concernés
-$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mldinan.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "22DIN"} | Select-Object UserPrincipalName
+$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mldinan.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "22DIN" -and JobTitle -eq "Point Accueil Ecoute Jeunes"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\22DIN-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\22DIN-PAEJ-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 

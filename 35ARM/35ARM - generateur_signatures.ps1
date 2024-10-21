@@ -1,7 +1,7 @@
 ﻿Connect-ExchangeOnline
 
 # Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "vmarie@mlfougeres.onmicrosoft.com" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company 
+$users = Get-User -Filter {UserPrincipalName -like "@armlb.bzh" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company 
 
 # Chemin vers le template HTML
 $templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Signatures\35ARM-template-signature.html" -raw
@@ -34,11 +34,12 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
         $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
-		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
-		$signatureHTML = $signatureHTML.Replace("{Phone}", $Phone)  
+		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
+  
 	} 
 }
 
