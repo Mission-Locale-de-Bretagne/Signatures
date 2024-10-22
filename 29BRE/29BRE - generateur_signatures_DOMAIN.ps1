@@ -24,7 +24,7 @@ foreach ($mailbox in $mailboxes) {
         $phone = "" 
 
 		# Selon le nom de l'antenne, on spécifie l'adresse de celle-ci. On exclue les situations avec antennes urbaines mixtes pour lesquelles on opère de la même façon que les antennes rurales.
-        if (-Not $user.Office.Contains("/")) {
+        if (-Not $user.Office.Contains("/") -and -Not ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE"))) {
             if ($user.Office.Contains("Siège administratif") -and $user.Department -ne "Aller vers")
             {
                 $address = "Mission Locale du Pays de Brest - Siège Administratif"
@@ -177,9 +177,11 @@ foreach ($mailbox in $mailboxes) {
         # Cas spécifique des antennes CEJ et SEE
         elseif ($user.Department -ne $null -and ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE")))
         {
+            Write-Host $user.lastname $user.FirstName "est CEJ ou SEE"
+
             if ($user.Department.Contains("CEJ"))
             {
-                #Write-Host $user.lastname $user.FirstName "est dans le service CEJ"
+                Write-Host $user.lastname $user.FirstName "est dans le service CEJ"
                 $address = "Mission Locale du Pays de Brest - Service Contrat Engagement Jeune"
                 $street = "9 rue de Vendée"
                 $postalcode = "29200"
@@ -271,7 +273,7 @@ foreach ($mailbox in $mailboxes) {
         #Out-File -FilePath $filename -InputObject $signatureHTML
 
         # Selon l'itération, on regénère l'ensemble des signatures ou juste les perosnnes impactées par la génération souhaitée
-        #if ($user.LastName -eq "VERDES") {
+        #if ($user.LastName -eq "DRONVAL") {
         if ($user.Department -eq "SEE") {
             Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
             Out-File -FilePath $filename -InputObject $signatureHTML
