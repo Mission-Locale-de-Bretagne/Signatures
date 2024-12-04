@@ -3,59 +3,72 @@
         background-color: #ffffff;
         padding: 5px 15px 5px 0;
     }
-    
+
     #texte {
         padding-top: 0px; /* Ajusté pour un meilleur alignement */
     }
-    
+
     p {
         font-size: 14px;
         font-family: arial;
         margin: 5px 0;
         color: #2897D5;
     }
-    
+
     a {
         color: #27afa5;
         font-weight: bold;
         text-decoration: none; /* Supprime le soulignement pour tous les états */
     }
-    
+
     a:hover {
         color: #27afa5;
         text-decoration: underline; /* Soulignement au survol si désiré */
     }
-    
+
     .big {
         font-size: 15px;
     }
-    
+
     span {
         padding-left: 2px;
     }
-    
+
     img {
         position: relative;
         top: 4px;
         display: inline-block; /* Ajout pour aligner correctement les images */
     }
-    
+
     td#logo {
         padding-right: 20px;
         vertical-align: middle; /* Centrage vertical du logo */
     }
-    
+
     td {
         vertical-align: top;
     }
-    </style>
-    
 
-    <table>
-        <tr>
-            <td id="logo">
-                <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/MLCB.png?raw=true" width="185" height="99">
-            </td>
+    /* Suppression des marges spécifiques pour la bannière finale */
+    .final-banner {
+        margin: 0; /* Supprime les marges autour de la bannière */
+        padding: 0; /* Supprime les espacements internes */
+    }
+
+    /* Alignement et suppression des marges supplémentaires pour le texte RGPD */
+    .rgpd-text {
+		font-family: arial;
+        margin: 0; /* Supprime toute marge autour du texte RGPD */
+        padding: 0; /* Supprime les espacements internes */
+        font-size: 12px; /* Ajustement de la taille si nécessaire */
+    }
+</style>
+
+<table>
+    <tr>
+        <td id="logo">
+            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/MLCB.png?raw=true" width="185" height="99">
+        </td>
         <td id="texte">
             <p><strong class="big">{First name} {Last name}</strong><br>
                 {Title}
@@ -64,55 +77,50 @@
                {Street} - {PostalCode}&nbsp;{City}</p>
             <p>
                 <span class="big">{Phone}</span><br>
-				<span class="big">{MobilePhone}</span><br>
-			</p>
-			
-			<p>
-				<strong class="big"> Pontivy - Loudéac - Locminé </strong>				
-			</p>
-			
+                <span class="big">{MobilePhone}</span><br>
+            </p>
             <p>
-			
+                <strong class="big">Pontivy - Loudéac - Locminé</strong>
+            </p>
+            <p>
                 <a href="https://ml-cb.fr/">
                     <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Web.png?raw=true" alt="Site Web" width="30" height="30">
                 </a>
-
                 <a href="https://fr.linkedin.com/company/mission-locale-de-centre-bretagne">
                     <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Linkedin.png?raw=true" alt="LinkedIn" width="30" height="30">
                 </a>
-
-				<a href="https://www.facebook.com/mlcentrebretagne">
+                <a href="https://www.facebook.com/mlcentrebretagne">
                     <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Facebook.png?raw=true" alt="Facebook" width="30" height="30">
                 </a>
-
                 <a href="https://www.instagram.com/mlcentrebretagne/">
                     <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Instagram.png?raw=true" alt="Instagram" width="30" height="30">
-
-
+                </a>
                 <a href="https://www.tiktok.com/@mlcentrebretagne">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Tikttok.png?raw=true" alt="TikTok" width="30" height="30">
-                    </a>
-
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Tikttok.png?raw=true" alt="TikTok" width="30" height="30">
+                </a>
                 <a href="https://www.youtube.com/channel/UCsjPZBtpsmFsGpo5UYyrxZg">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Youtube.png?raw=true" alt="Youtube" width="30" height="30">
-                    </a>
-
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/Youtube.png?raw=true" alt="YouTube" width="30" height="30">
                 </a>
             </p>
         </td>
     </tr>
 </table>
 
-	<p>
-		<a href="">
-			<img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/Signature_Mail_jeune.png?raw=true" width="500" height="100">
-		</a>
-	</p>
-<p> 
-
-		<a href="">
-			<img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/LogoFin.png?raw=true" width="650" height="50">
-		</a>
-	</p>
-
-</p> 
+<p class="final-banner">
+    <a href="">
+        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/Signature_Mail_jeune.png?raw=true" width="500" height="100">
+    </a>
+</p>
+<p class="final-banner">
+    <a href="">
+        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56PON/LogoFin.png?raw=true" width="650" height="50">
+    </a>
+</p>
+<pre class="rgpd-text">
+<small>
+La mission locale de Centre Bretagne peut collecter des données à caractère personnel vous concernant dans le cadre de sa mission d’intérêt public. 
+Conformément au Règlement Général sur la Protection des Données (RGPD) et à la législation française, en communiquant avec notre Mission Locale par e-mail, 
+vous consentez au traitement de vos données personnelles pour répondre à votre demande. Vous pouvez consulter notre <a href="https://ml-cb.fr/politique-de-confidentialite/">politique de confidentialité</a>. 
+Pour tout besoin d'information ou réclamation, vous pouvez également nous contacter à : dpo@ml-cb.fr 
+</small>
+</pre>
