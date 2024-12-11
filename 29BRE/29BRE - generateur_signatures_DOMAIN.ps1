@@ -5,7 +5,7 @@ Connect-ExchangeOnline
 
 # Cible le ou les utilisateurs concernÃ©s
 
-$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
+$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*.prigent@mission-locale-brest.org" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29BRE"} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 #$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
 
 # Chemin vers le template HTML
@@ -14,6 +14,8 @@ $templateSignatureHTML = Get-Content -Path "C:\Users\AliceQUERIC\ARMLB\Pays de B
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
     $user = Get-User -Identity $mailbox.UserPrincipalName | Select-Object FirstName, LastName, Title, Phone, MobilePhone, UserPrincipalName, StreetAddress, PostalCode, City, Office, Company, Department
+
+
 	$signatureHTML = $templateSignatureHTML 
 	# VÃ©rification qu'il s'agit bien d'un utilisateur
 	if ($user.firstname -and $user.FirstName -ne "Scan" -and -not $user.FirstName.Contains("Compte administratif") -and -not $user.LastName.Contains("Reply") -and $user.FirstName -ne "Test") {
@@ -24,7 +26,7 @@ foreach ($mailbox in $mailboxes) {
         $phone = "" 
 
 		# Selon le nom de l'antenne, on spécifie l'adresse de celle-ci. On exclue les situations avec antennes urbaines mixtes pour lesquelles on opère de la même façon que les antennes rurales.
-        if (-Not $user.Office.Contains("/") -and -Not ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE"))) {
+        if (-Not $user.Office.Contains("/") -and -Not ($user.Department.Contains("CEJ") -or $user.Department.Contains("Engagement") -or $user.Department.Contains("SEE"))) {
             if ($user.Office.Contains("Siège administratif") -and $user.Department -ne "Aller vers")
             {
                 $address = "Mission Locale du Pays de Brest - Siège Administratif"
@@ -65,6 +67,12 @@ foreach ($mailbox in $mailboxes) {
                 $city = "Brest"
                 $phone = "02 98 47 25 53" 
             }
+            elseif ($user.Office.Contains("Landerneau"))
+            {
+                $address = "Mission Locale du Pays de Brest"
+                $postalcode = "Antenne Landerneau"
+                $phone = "02 98 21 52 29"
+            } 
         }
 
         # Cas des salariés présents sur deux antennes selon le jour de la semaine.
@@ -175,11 +183,11 @@ foreach ($mailbox in $mailboxes) {
             } 
         }
         # Cas spécifique des antennes CEJ et SEE
-        elseif ($user.Department -ne $null -and ($user.Department.Contains("CEJ") -or $user.Department.Contains("SEE")))
+        elseif ($user.Department -ne $null -and ($user.Department.Contains("CEJ") -or $user.Department.Contains("Engagement") -or $user.Department.Contains("SEE")))
         {
             Write-Host $user.lastname $user.FirstName "est CEJ ou SEE"
 
-            if ($user.Department.Contains("CEJ"))
+            if ($user.Department.Contains("CEJ") -or $user.Department.Contains("Contrat Engagement Jeunes"))
             {
                 Write-Host $user.lastname $user.FirstName "est dans le service CEJ"
                 $address = "Mission Locale du Pays de Brest - Service Contrat Engagement Jeune"
@@ -273,9 +281,9 @@ foreach ($mailbox in $mailboxes) {
         #Out-File -FilePath $filename -InputObject $signatureHTML
 
         # Selon l'itération, on regénère l'ensemble des signatures ou juste les perosnnes impactées par la génération souhaitée
-        #if ($user.LastName -eq "DRONVAL") {
-        if ($user.Department -eq "SEE") {
-            Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
+        if ($user.LastName -eq "PRIGENT") {
+        #if ($user.Department -eq "SEE") {
+            #Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true
             Out-File -FilePath $filename -InputObject $signatureHTML
         }
         # Ou bien toutes les signatures mais ca risque de raler
