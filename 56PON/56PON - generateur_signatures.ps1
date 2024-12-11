@@ -1,15 +1,15 @@
-﻿#Necessite que le roaming soit desactive :
+#Necessite que le roaming soit desactive :
 #Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
 Connect-ExchangeOnline
 
 
 # Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "vmarie@mlfougeres.onmicrosoft.com" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
+$users = Get-User -Filter {UserPrincipalName -like "j.lemaitre@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 #$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Signatures\56PON-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\56PON-template-signature.html" -raw -Encoding UTF8
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
@@ -25,10 +25,6 @@ foreach ($user in $users) {
             $postalcode = "56300"
             $city = "Pontivy"
             $phone = "02 97 25 38 35" 
-            $street2 = "1 Rue de la Chesnaie"
-            $postalCode2 ="22600"
-            $city2 = "Loudéac"
-            $phone2 = "02 96 28 99 18"
 
             Write-Host "Utilisateur trouvé :"
 
@@ -40,17 +36,13 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
-		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
+		$signatureHTML = $signatureHTML.Replace("{Address}", $user.company)
         	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
-		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
-		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
-		$signatureHTML = $signatureHTML.Replace("{Street2}", $street2) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode2}", $postalcode2) 
-		$signatureHTML = $signatureHTML.Replace("{City2}", $city2)  
-		$signatureHTML = $signatureHTML.Replace("{Phone2}", $phone2) 
 
 	} 
 }

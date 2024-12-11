@@ -7,7 +7,7 @@ Connect-ExchangeOnline
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "56PON"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\56PON-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\56PON-template-signature.html" -raw -Encoding UTF8
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -18,16 +18,6 @@ foreach ($mailbox in $mailboxes) {
         # Réécriture de l'adresse pour harmonisation
         if ($user.company -eq "Mission Locale Centre Bretagne")
         {
-            #$building = "Immeuble .."
-            $address = "Mission Locale Centre Bretagne"
-            $street = "13 bis Rue Saint-Jory"
-            $postalcode = "56300"
-            $city = "Pontivy"
-            $phone = "02 97 25 38 35" 
-            $street2 = "1 Rue de la Chesnaie"
-            $postalCode2 ="22600"
-            $city2 = "Loudéac"
-            $phone2 = "02 96 28 99 18"
 
             Write-Host "Utilisateur trouvé"
         } else {
@@ -38,17 +28,13 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
-		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
-        $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
-		$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
-		$signatureHTML = $signatureHTML.Replace("{City}", $city)  
-		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+		$signatureHTML = $signatureHTML.Replace("{Address}", $user.company)
+        	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
+		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
+		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
+		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
-		$signatureHTML = $signatureHTML.Replace("{Street2}", $street2) 
-		$signatureHTML = $signatureHTML.Replace("{PostalCode2}", $postalcode2) 
-		$signatureHTML = $signatureHTML.Replace("{City2}", $city2)  
-		$signatureHTML = $signatureHTML.Replace("{Phone2}", $phone2) 
 
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
 
