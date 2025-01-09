@@ -1,6 +1,7 @@
 # Nécessite que le roaming soit desactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
+# Nécessite PowerShell 5.1
 # Nécessite le module ExchangeOnlineManagement ver. = 3.5.1
 
 Connect-ExchangeOnline
