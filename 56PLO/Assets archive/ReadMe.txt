@@ -1,0 +1,1 @@
+Place every outdated assets in this folder
