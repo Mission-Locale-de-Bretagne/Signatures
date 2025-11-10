@@ -1,4 +1,4 @@
-﻿# Stockage dans une variable de l'UPN de l'utilisateur
+﻿# Input dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 
 # Connexion à Exchange Online
