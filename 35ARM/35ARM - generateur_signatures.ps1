@@ -6,8 +6,10 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
-# Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "@armlb.bzh" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company 
+# Input dans une variable de l'UPN de l'utilisateur
+$userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
+# Cible le ou les utilisateurs concernés
+$users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
 # Chemin vers le template HTML
 $templateSignatureHTML = Get-Content -Path "$scriptDirectory\35ARM-template-signature.html" -raw

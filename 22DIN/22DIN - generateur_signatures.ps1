@@ -3,10 +3,10 @@
 
 Connect-ExchangeOnline
 
-
-# Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "vmarie@mlfougeres.onmicrosoft.com" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company,department
-#$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
+# Input dans une variable de l'UPN de l'utilisateur
+$userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
+# Cible le ou les utilisateurs concernés
+$users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
 # Chemin vers le template HTML
 $templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\22DIN-PAEJ-template-signature.html" -raw

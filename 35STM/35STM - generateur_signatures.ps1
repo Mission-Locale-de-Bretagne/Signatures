@@ -1,7 +1,4 @@
-﻿# Input dans une variable de l'UPN de l'utilisateur
-$userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
-
-# Connexion à Exchange Online
+﻿# Connexion à Exchange Online
 #Définition de la variable du répertoire d'exécution du script
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDirectory = Split-Path -Path $scriptPath -Parent
@@ -10,6 +7,8 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
+# Input dans une variable de l'UPN de l'utilisateur
+$userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
