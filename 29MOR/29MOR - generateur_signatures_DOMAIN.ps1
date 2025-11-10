@@ -25,10 +25,12 @@ foreach ($mailbox in $mailboxes) {
         if ($user.company -eq "Mission Locale du Pays de Morlaix")
         {
             $address = "Mission Locale du Pays de Morlaix"
+            <# Ces variables ne sont pas utilisées dans le template actuel mais peuvent être utiles pour de futurs ajustements
             $street = "Rue Jean Caerou - ZA La Boissière"
             $postalcode = "29600"
             $city = "Morlaix"
-            $phone = "02 98 15 15 50" 
+            $phone = "02 98 15 15 50"
+            #>
             Write-Host "Utilisateur trouvé"
         } else {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.FirstName, $user.LastName)
