@@ -1,10 +1,16 @@
-﻿Connect-ExchangeOnline
+﻿#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernÃ©s
 $users = Get-User -Filter {UserPrincipalName -like "@armlb.bzh" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company 
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Signatures\35ARM-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35ARM-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
@@ -48,4 +54,4 @@ foreach ($user in $users) {
 	# Mise en place de la signature sur le compte
 	Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false

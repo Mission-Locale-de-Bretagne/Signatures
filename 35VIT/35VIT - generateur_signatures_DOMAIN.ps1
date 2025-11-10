@@ -1,10 +1,16 @@
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@missionlocale-portedebretagne.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35VIT"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\35VIT-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35VIT-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -47,4 +53,4 @@ foreach ($mailbox in $mailboxes) {
     }
 }
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false

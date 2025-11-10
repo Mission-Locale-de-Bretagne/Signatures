@@ -1,13 +1,19 @@
 ﻿# Nécessite que le roaming soit désactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@armlb.bzh" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35ARM"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\35ARM-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\Signatures\35ARM-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -18,7 +24,6 @@ foreach ($mailbox in $mailboxes) {
         # Réécriture de l'adresse pour harmonisation
         if ($user.Company -eq "Association Régionale des Missions Locales de Bretagne")
         {
-
             $building = "Immeuble Colbert"
             $address = "Association Régionale des Missions Locales de Bretagne"
             $street = "31 Place du Colombier"
@@ -50,4 +55,4 @@ foreach ($mailbox in $mailboxes) {
     }
 }
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false

@@ -4,13 +4,19 @@
 # Nécessite PowerShell 5.1
 # Nécessite le module ExchangeOnlineManagement ver. = 3.5.1
 
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mlstbrieuc.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "22STB"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "<CHEMIN_VERS_TEMPLATE>\22STB-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\22STB-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -39,7 +45,7 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $address)
-        	#$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+        #$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
 		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
 		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  

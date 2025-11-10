@@ -1,11 +1,14 @@
-﻿# Save executing directory to variable
-$scriptDirectory = Get-Location
-
-# Stockage dans une variable de l'UPN de l'utilisateur
+﻿# Stockage dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 
 # Connexion à Exchange Online
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company

@@ -1,13 +1,19 @@
 ﻿# Nécessite que le roaming soit désactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
+
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "56PON"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\56PON-template-signature.html" -raw -Encoding UTF8
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\56PON-template-signature.html" -raw -Encoding UTF8
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -29,7 +35,7 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $user.company)
-        	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+        $signatureHTML = $signatureHTML.Replace("{Building}",$building)
 		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
 		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
@@ -43,4 +49,4 @@ foreach ($mailbox in $mailboxes) {
         }
     }
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false

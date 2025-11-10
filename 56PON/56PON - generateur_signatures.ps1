@@ -1,15 +1,19 @@
 #Necessite que le roaming soit desactive :
 #Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
-Connect-ExchangeOnline
+#Définition de la variable du répertoire d'exécution du script
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Path $scriptPath -Parent
 
+# Connexion à Exchange Online
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -ShowBanner:$true
 
 # Cible le ou les utilisateurs concernÃ©s
-$users = Get-User -Filter {UserPrincipalName -like "j.lemaitre@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
-#$CompanyName = Get-AzureADUser -Filter "UserPrincipalName eq 'vmarie@mlfougeres.onmicrosoft.com'" | Select-Object -ExpandProperty CompanyName
+$users = Get-User -Filter {UserPrincipalName -like "xxxxx@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox'} | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,Office,Company
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "C:\Users\VincentMARIE\OneDrive - ARMLB\Documents\WindowsPowerShell\Scripts\Pack Signature HTML\Signatures\56PON-template-signature.html" -raw -Encoding UTF8
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\56PON-template-signature.html" -raw -Encoding UTF8
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
@@ -37,7 +41,7 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
 		$signatureHTML = $signatureHTML.Replace("{Title}", $user.title) 
 		$signatureHTML = $signatureHTML.Replace("{Address}", $user.company)
-        	$SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+        $signatureHTML = $signatureHTML.Replace("{Building}",$building)
 		$signatureHTML = $signatureHTML.Replace("{Street}", $user.streetaddress) 
 		$signatureHTML = $signatureHTML.Replace("{PostalCode}", $user.postalcode) 
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
@@ -52,4 +56,4 @@ foreach ($user in $users) {
 	# Mise en place de la signature sur le compte
 	Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false
