@@ -25,10 +25,12 @@ foreach ($user in $users) {
         if ($user.Company -eq "Mission Locale du Pays de Saint-Malo")
         {
             $address = "Mission Locale du Pays de Saint-Malo"
+			<# Ces variables ne sont pas utilisées dans le template actuel mais peuvent être utiles pour de futurs ajustements
             $street = "35 Avenue Comptoirs"
             $postalcode = "35400"
             $city = "Saint-Malo"
             $phone = "02 99 82 86 00 "
+			#>
         } else {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
 			exit
