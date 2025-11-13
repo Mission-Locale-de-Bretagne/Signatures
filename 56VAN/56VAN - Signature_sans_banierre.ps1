@@ -84,7 +84,6 @@ if (-not (Test-Path -LiteralPath $CsvPath)) { Write-Err2 "CSV introuvable : $Csv
 Write-Info "Connexion à Exchange Online..."
 Connect-ExchangeOnline -ShowBanner:$false
 
-# Optionnel : si tu veux empêcher la synchro des signatures locales (roaming)
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true
 
 # Charge CSV
@@ -183,4 +182,5 @@ try {
 }
 
 Disconnect-ExchangeOnline -Confirm:$false
+
 Write-Info "Terminé."
