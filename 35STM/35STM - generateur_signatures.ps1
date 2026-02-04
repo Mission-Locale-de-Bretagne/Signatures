@@ -13,7 +13,7 @@ $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35STM\35STM-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35STM-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
