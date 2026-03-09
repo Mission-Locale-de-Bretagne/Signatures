@@ -4,20 +4,20 @@ Liste des ML pour lesquelles l'ARMLB gère la génération des signatures mail (
 
 |ML         |Oui      |Non
 |---------|-------|-------|
-|22DIN|x                  |
-|22LAN||x                 |
-|22STB|x                  |
-|29BRE||x                 |
-|29QUI|x                  |
-|29MOR|x                  |
-|35ARM|x                  |
-|35FOU||x                 |
-|35RED||x                 |
-|35STM|x                  |
-|35VIT|x                  |
-|35WEK||x                 |
-|56AUR|x                  |
-|56PLO|x                  |
-|56PON|x                  |
-|56LOR|x                  |
-|56VAN|x                  |
+|22DIN|X                  |
+|22LAN||X                 |
+|22STB|X                  |
+|29BRE||X                 |
+|29QUI|X                  |
+|29MOR|X                  |
+|35ARM|X                  |
+|35FOU||X                 |
+|35RED||X                 |
+|35STM|X                  |
+|35VIT|X                  |
+|35WEK||X                 |
+|56AUR|X                  |
+|56PLO|X                  |
+|56PON|X                  |
+|56LOR|X                  |
+|56VAN|X                  |
