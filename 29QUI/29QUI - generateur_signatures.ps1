@@ -50,7 +50,7 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
-  
+  		$signatureHTML = $signatureHTML.Replace("{Email}", $user.userprincipalname)
 
 	} 
 }
