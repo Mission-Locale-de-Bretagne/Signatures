@@ -16,7 +16,12 @@ $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -raw
+if ($userUPN -eq "gael@mlcornouaille.bzh") {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature-studioml.html" -Raw
+}
+else {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -Raw
+}
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
