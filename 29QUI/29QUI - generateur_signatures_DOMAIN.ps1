@@ -47,6 +47,7 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
+		$signatureHTML = $signatureHTML.Replace("{Email}", $user.userprincipalname)
   
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
 
