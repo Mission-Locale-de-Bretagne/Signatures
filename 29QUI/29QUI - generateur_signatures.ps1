@@ -15,7 +15,7 @@ $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
-# Chemin vers le template HTML
+# Chemin vers les templates HTML avec condition en fonction de l'utilisateur
 if ($userUPN -eq "gael@mlcornouaille.bzh") {
     $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature-studioml.html" -Raw
 }
