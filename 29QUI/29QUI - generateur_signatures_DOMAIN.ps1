@@ -13,7 +13,12 @@ Connect-ExchangeOnline -ShowBanner:$true
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mlcornouaille.bzh" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29QUI"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -raw
+if ($userUPN -eq "ton.email@mlcornouaille.bzh") {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature-studioml.html" -Raw
+}
+else {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -Raw
+}
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
