@@ -18,11 +18,13 @@ $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobile
 $templateSignatureHTML = Get-Content -Path "$scriptDirectory\56AUR-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
-foreach ($user in $users) { 
-	$signatureHTML = $templateSignatureHTML 
+foreach ($user in $users) {
+	#Réinitialisation de la variable de la signature pour chaque utilisateur 
+	$signatureHTML = $templateSignatureHTML
+
 	# Vérification qu'il s'agit bien d'un utilisateur
 	if ($user.firstname) { 
-		# RÃ©Ã©criture de l'adresse pour harmonisation
+		# Réécriture de l'adresse pour harmonisation
         if ($user.company -eq "Mission Locale du Pays d'Auray")
         {
             #$building = "Immeuble .."
@@ -49,7 +51,6 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
-
 	} 
 }
 
