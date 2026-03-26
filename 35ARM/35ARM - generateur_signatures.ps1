@@ -6,6 +6,7 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
+
 # Input dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés

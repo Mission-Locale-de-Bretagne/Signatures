@@ -9,14 +9,22 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
+# Récupération des membres de la liste emploi
+$emploiMembers = Get-DistributionGroupMember "emploi@mlcornouaille.bzh" | Select-Object -ExpandProperty PrimarySmtpAddress
+
 
 # Input dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
-# Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -raw
+# Chemin vers les templates HTML avec condition en fonction de l'utilisateur
+if ($userUPN -eq "gael@mlcornouaille.bzh") {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature-studioml.html" -Raw
+}
+else {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -Raw
+}
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
@@ -50,7 +58,7 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
-  
+  		$signatureHTML = $signatureHTML.Replace("{Email}", $user.userprincipalname)
 
 	} 
 }

@@ -9,11 +9,19 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
+# Récupération des membres de la liste emploi
+$emploiMembers = Get-DistributionGroupMember "emploi@mlcornouaille.bzh" | Select-Object -ExpandProperty PrimarySmtpAddress
+
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mlcornouaille.bzh" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "29QUI"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -raw
+if ($userUPN -eq "ton.email@mlcornouaille.bzh") {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature-studioml.html" -Raw
+}
+else {
+    $templateSignatureHTML = Get-Content -Path "$scriptDirectory\29QUI-template-signature.html" -Raw
+}
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -47,6 +55,7 @@ foreach ($mailbox in $mailboxes) {
 		$signatureHTML = $signatureHTML.Replace("{City}", $user.city)  
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $user.phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
+		$signatureHTML = $signatureHTML.Replace("{Email}", $user.userprincipalname)
   
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
 
