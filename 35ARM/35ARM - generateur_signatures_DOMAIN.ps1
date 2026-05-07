@@ -14,7 +14,7 @@ Connect-ExchangeOnline -ShowBanner:$true
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@armlb.bzh" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35ARM"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\Signatures\35ARM-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35ARM-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
