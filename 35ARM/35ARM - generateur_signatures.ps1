@@ -55,6 +55,6 @@ foreach ($user in $users) {
 	Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
 
 	# Mise en place de la signature sur le compte
-	Set-MailboxMessageConfiguration -Identity $user.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
+	Set-MailboxMessageConfiguration -Identity $users.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
 
 Disconnect-ExchangeOnline -Confirm:$false
