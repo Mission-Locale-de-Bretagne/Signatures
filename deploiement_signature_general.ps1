@@ -50,7 +50,7 @@ foreach ($mailbox in $mailboxes)
         $MailboxInfo = Get-Mailbox $mailbox.UserPrincipalName
         $Tag = $MailboxInfo.CustomAttribute15
 
-        if (:IsNullOrWhiteSpace($Tag))
+        if (-not ($Tag))
         {
             Write-Warning "CustomAttribute15 vide."
             continue
