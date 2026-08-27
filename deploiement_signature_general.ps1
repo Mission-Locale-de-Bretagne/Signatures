@@ -5,8 +5,12 @@
 #
 #Nécessite que le roaming des signatures soit désactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater $true
+param(
+    [string]$UserPrincipalName
+)
 
 Connect-ExchangeOnline
+
 
 # Tags exclus du déploiement
 $ExcludedTags = @(
@@ -27,7 +31,14 @@ $TemplateUrls = @{
 }
 
 # Boîtes aux lettres utilisateur
-$mailboxes = Get-EXOMailbox -ResultSize Unlimited -RecipientTypeDetails UserMailbox
+if ($UserPrincipalName)
+{
+    $mailboxes = Get-EXOMailbox -Identity $UserPrincipalName
+}
+else
+{
+    $mailboxes = Get-EXOMailbox -ResultSize Unlimited -RecipientTypeDetails UserMailbox
+}
 
 foreach ($mailbox in $mailboxes)
 {
