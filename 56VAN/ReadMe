@@ -1,1 +1,21 @@
 Dossier spécifique à la ML de Vannes
+
+Spécifité des signatures de la structure : 
+Les utilisateurs sont répartis en trois groupes, chaque groupe disposant d'une signature différente.
+Le fichier "occurences_vannes.csv" établit la répartition des UPN parmis les trois groupes en question, en fonction du code hexa associé à chacun.
+    - Les utilisateurs associés au code hexa"95c122" reçoivent le template "signature_sesame.html"
+    - Les utilisateurs associés au code hexa"2d96d3" reçoivent le template "signature_generique.html"
+    - Les utilisateurs associés au code hexa"831f81" reçoivent le template "signature_admin.html"
+
+Le code hexa en question est utilisé dans le template pour changer la couleur du texte des éléments suivants :
+    - Nom
+    - Prénom
+    - Texte "Standard" (Avant-dernière ligne du tableau contenant les informations de l'utilisateur)
+    - Texte "Mobile" (Avant-dernière ligne du tableau contenant les informations de l'utilisateur)
+
+ATTENTION ! Du fait des trois templates différents de signature, il n'y a pas de script pour générer une signature individuelle.
+En cas de nouvel arrivant, il est donc nécessaire de :
+    - ajouter l'UPN et le code hexadécimal du nouvel.le arrivant.e dans "occurences.csv"
+    - exécuter "56VAN - generateur_signature_new.ps1" pour regénérer les signatures de l'ensemble de la structure.
+
+Last but not least, ne pas oublier de commit les potentiels changements ;)
