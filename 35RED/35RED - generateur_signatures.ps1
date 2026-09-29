@@ -32,7 +32,7 @@ foreach ($user in $users) {
         }
 
 		# reecriture de l'adresse pour harmonisation
-        if ($user.Company -eq "Association Régionale des Missions Locales de Bretagne")
+        if ($user.Company -eq "Mission Locale du Pays de Redon et de Vilaine")
         {
 
             $address = "Mission Locale du Pays de Redon et Vilaine"
