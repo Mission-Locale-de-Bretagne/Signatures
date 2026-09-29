@@ -1,6 +1,7 @@
 Repo contenant les divers éléments pour la génération des signatures mail de chacune des structures
+Chaque structure est responsable du déploiement de ses signatures (hors structures infogérées ou cas de force majeure nécessitant une continuité de service)
 
-Liste des ML pour lesquelles l'ARMLB gère la génération des signatures mail (hors continuité de service) au 26/08/2024
+Liste des ML utilisant le modèle/template de signature fourni par l'ARML au 26/08/2024 :
 
 |ML         |Oui      |Non
 |---------|-------|-------|
