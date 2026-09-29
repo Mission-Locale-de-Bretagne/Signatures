@@ -12,6 +12,7 @@
         font-size: 14px;
         font-family: arial;
         margin: 5px 0;
+        padding: 0;
         color: #2897D5;
     }
     
@@ -43,80 +44,90 @@
     td#logo {
         padding-right: 20px;
         vertical-align: middle; /*Centrage vertical du logo */
-        text-align: center; 
+        text-align: center; /* Centrage horizontal du logo */
     }
     
     td {
         vertical-align: top;
     }
-    </style>
-    
-    <table>
-        <tr>
-            <td id="logo">
-                <a href="https://www.ml-redon.com/">
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/Logos%20ML%20textes%20vectoris%C3%A9s_logo-mlprv-carr%C3%A9.svg?raw=true" 
-                         alt="Logo Mission Locale Redon" 
-                         width="100" 
-                         height="100">
-                </a>
-                <p>
-                    
-                    <a href="https://www.facebook.com/missionlocaleredon">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_facebook-gris.svg?raw=true" alt="Facebook Redon" 
-                        alt="Facebook Redon"
-                        width="30" 
-                        height="30">
-                    </a>
-                    
-                    <a href="https://www.instagram.com/missionlocaleredon/">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_instagram-gris.svg?raw=true" alt="Instagram Redon" 
-                        alt="Instagram Redon"
-                        width="30" 
-                        height="30">
-                    </a>
-                    
-                    <a href="https://www.linkedin.com/company/mission-locale-redon/">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_linkedin-gris.svg?raw=true" alt="LinkedIn Redon" 
-                        alt="LinkedIn Redon"
-                        width="30" 
-                        height="30">
-                    </a>
-                    
-                    <a href="https://www.youtube.com/@missionlocaleredon">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_youtube-gris.svg?raw=true" alt="YouTube Redon" 
-                        alt="YouTube Redon"
-                        width="30" 
-                        height="30">
-                    </a>
-                </p>
-            </td>
+</style>
 
-            <td id="texte">
+<p>
+    <small style="font-style: italic;">
+        Les courriels transmis en dehors des heures de travail ne nécessitent pas de réponse ou de traitement immédiat.
+    </small>
+</p>
+
+<table>
+    <tr>
+        <td id="logo">
+            <a href="https://www.ml-redon.com/">
+                <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/Logos%20ML%20textes%20vectoris%C3%A9s_logo-mlprv-carr%C3%A9.svg?raw=true" 
+                     alt="Logo Mission Locale Redon" 
+                     width="100" 
+                     height="100">
+            </a>
             <p>
-                <strong class="big">{First name} {Last name}</strong><br>
-                {Title}
-            </p>
-            <p>
-                <span>Standard : 02 99 72 19 50</span><br>
-                <span>{MobilePhone}</span>
-            </p>
-            <p>
-                3 rue Charles Sillard - CS 60287 <br>
-                35602 - Redon
-            </p>
-            <p>
-                <a>
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/Bas%20de%20mail%20ML%20-%20Taxe%20d'apprentissage.png?raw=true"
-                        alt="Taxe d'apprentissage" 
-                        width="600" 
-                        height="100">
+                
+                <a href="https://www.facebook.com/missionlocaleredon">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_facebook-gris.svg?raw=true" alt="Facebook Redon" 
+                    alt="Facebook Redon"
+                    width="30" 
+                    height="30">
+                </a>
+                
+                <a href="https://www.instagram.com/missionlocaleredon/">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_instagram-gris.svg?raw=true" alt="Instagram Redon" 
+                    alt="Instagram Redon"
+                    width="30" 
+                    height="30">
+                </a>
+                
+                <a href="https://www.linkedin.com/company/mission-locale-redon/">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_linkedin-gris.svg?raw=true" alt="LinkedIn Redon" 
+                    alt="LinkedIn Redon"
+                    width="30" 
+                    height="30">
+                </a>
+                
+                <a href="https://www.youtube.com/@missionlocaleredon">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/logo_youtube-gris.svg?raw=true" alt="YouTube Redon" 
+                    alt="YouTube Redon"
+                    width="30" 
+                    height="30">
+                </a><br>
+                <br>
+                <a href="https://www.ml-redon.com/">
+                    www.ml-redon.com
                 </a>
             </p>
         </td>
+        <td id="texte">
+        <p>
+            <strong class="big">{First name} {Last name}</strong><br>
+            {Title}
+        </p>
+        <p>
+            Standard : 02 99 72 19 50<br>
+            Mobile : {MobilePhone}<br>
+            Email : {Mail}
+        </p>
+        <p>
+            3 rue Charles Sillard - CS 60287<br>
+            35602 - Redon
+        </p>
+        <p>
+            <a>
+                <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/Bas%20de%20mail%20ML%20-%20Taxe%20d'apprentissage.png?raw=true"
+                    alt="Taxe d'apprentissage">
+            </a>
+        </p>
+    </td>
     </tr>
 </table>
 <a>
     <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/35RED/Banni%C3%A8re%20financeurs%20-%20ML%20REDON%20-%201300x100px.png?raw=true"
-    alt="Financeurs">
+    alt="Financeurs"
+    width="52%"
+    height="auto">
 </a>
