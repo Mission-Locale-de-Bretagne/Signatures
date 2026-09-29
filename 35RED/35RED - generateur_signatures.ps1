@@ -1,3 +1,8 @@
+#Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
+$fseUsers = @(
+    "elise.bocquel@ml-redon.com"
+)
+
 #Définition de la variable du répertoire d'exécution du script
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDirectory = Split-Path -Path $scriptPath -Parent
@@ -19,7 +24,13 @@ $templateSignatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-sign
 foreach ($user in $users) { 
 	$signatureHTML = $templateSignatureHTML 
 	# Verification qu'il s'agit bien d'un utilisateur
-	if ($user.firstname) { 
+	if ($user.firstname) {
+		
+		# Modification du template pour les utilisateurs FSE
+        if ($fseUsers -contains $user.UserPrincipalName) {
+            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw            
+        }
+
 		# reecriture de l'adresse pour harmonisation
         if ($user.Company -eq "Association Régionale des Missions Locales de Bretagne")
         {
