@@ -1,7 +1,4 @@
-﻿﻿# Nécessite que le roaming soit désactivé :
-# Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
-
-#Définition de la variable du répertoire d'exécution du script
+﻿﻿#Définition de la variable du répertoire d'exécution du script
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDirectory = Split-Path -Path $scriptPath -Parent
 
@@ -47,6 +44,7 @@ foreach ($mailbox in $mailboxes) {
         $signatureHTML = $signatureHTML.Replace("{City}", $city)  
         $signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
         $signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.MobilePhone)
+        $signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
 
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
 
