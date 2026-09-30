@@ -64,4 +64,4 @@ foreach ($mailbox in $mailboxes) {
     }
 }
 
-Disconnect-ExchangeOnline
+Disconnect-ExchangeOnline -Confirm:$false
