@@ -1,9 +1,9 @@
-﻿﻿#Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
+﻿﻿# Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
 $fseUsers = @(
     "elise.bocquel@ml-redon.com"
 )
 
-#Définition de la variable du répertoire d'exécution du script
+# Définition de la variable du répertoire d'exécution du script
 $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDirectory = Split-Path -Path $scriptPath -Parent
 
@@ -14,10 +14,6 @@ Connect-ExchangeOnline -ShowBanner:$false
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@ml-redon.com" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35RED"} | Select-Object UserPrincipalName
 
-# Chemin vers le template HTML
-$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
-$signatureTemplate = "Standard Redon"
-
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
     $user = Get-User -Identity $mailbox.UserPrincipalName | Select-Object FirstName, LastName, Title, Phone, MobilePhone, UserPrincipalName, StreetAddress, PostalCode, City, Office, Company
@@ -25,10 +21,14 @@ foreach ($mailbox in $mailboxes) {
     # Vérification qu'il s'agit bien d'un utilisateur
     if ($user.FirstName) {
         
-        # Modification du template pour les utilisateurs FSE
+        # Définition du template de signature en fonction de l'utilisateur
+        # Si l'utilisateur est dans la variable $fseUsers, on utilise le template FSE, sinon on utilise le template standard.
         if ($fseUsers -contains $user.UserPrincipalName) {
             $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw
             $signatureTemplate = "FSE Redon"            
+        } else {
+            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+            $signatureTemplate = "Standard Redon"
         }
 
         # Réécriture de l'adresse pour harmonisation
