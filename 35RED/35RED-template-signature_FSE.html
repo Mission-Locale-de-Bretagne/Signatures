@@ -13,6 +13,10 @@
         color: #2897D5;
     }
 
+    .grey {
+        color : #7c7d82;
+    }
+
     a {
         color: #27afa5;
         font-weight: bold;
@@ -88,7 +92,7 @@
 
 <!-- Message de non-responsabilité -->
 <p>
-    <small style="font-style: italic;">
+    <small style="font-style: italic; color:#7c7d82;">
         Les courriels transmis en dehors des heures de travail ne nécessitent pas de réponse ou de traitement immédiat.
     </small>
 </p>
@@ -148,13 +152,16 @@
 
             <p>
                 <strong class="big">{First name} {Last name}</strong><br>
+            </p>
+
+            <p>
                 {Title}
             </p>
 
             <p>
-                Standard : 02 99 72 19 50<br>
-                Mobile : {MobilePhone}<br>
-                Email : {Mail}
+                Standard : <span class="grey">02 99 72 19 50</span><br>
+                Mobile : <span class="grey">{MobilePhone}</span><br>
+                Email : <span class="grey">{Mail}</span>
             </p>
 
             <p>
@@ -180,7 +187,6 @@
                  alt="Taxe d'apprentissage">
         </td>
     </tr>
-
 </table>
 
 <!-- Bannière des financeurs -->
