@@ -11,24 +11,26 @@ $scriptDirectory = Split-Path -Path $scriptPath -Parent
 Import-Module ExchangeOnlineManagement
 Connect-ExchangeOnline -ShowBanner:$true
 
-
 # Input dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+# Chemin vers le template HTML
+$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+$signatureTemplate = "Standard Redon"
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
-	$signatureHTML = $templateSignatureHTML 
+
 	# Verification qu'il s'agit bien d'un utilisateur
 	if ($user.firstname) {
 		
 		# Modification du template pour les utilisateurs FSE
         if ($fseUsers -contains $user.UserPrincipalName) {
-            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw            
+            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw
+            $signatureTemplate = "FSE Redon" 
         }
 
 		# reecriture de l'adresse pour harmonisation
@@ -42,6 +44,7 @@ foreach ($user in $users) {
             $phone = "02 99 72 19 50"
 
             Write-Host "Utilisateur trouvé"
+			Write-Host "Template utilisé : $($signatureTemplate)"
 
         } else {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)

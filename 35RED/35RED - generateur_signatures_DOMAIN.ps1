@@ -15,18 +15,20 @@ Connect-ExchangeOnline -ShowBanner:$false
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@ml-redon.com" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35RED"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+$signatureTemplate = "Standard Redon"
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
     $user = Get-User -Identity $mailbox.UserPrincipalName | Select-Object FirstName, LastName, Title, Phone, MobilePhone, UserPrincipalName, StreetAddress, PostalCode, City, Office, Company
-    $signatureHTML = $templateSignatureHTML 
+    
     # Vérification qu'il s'agit bien d'un utilisateur
     if ($user.FirstName) {
         
         # Modification du template pour les utilisateurs FSE
         if ($fseUsers -contains $user.UserPrincipalName) {
-            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw            
+            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw
+            $signatureTemplate = "FSE Redon"            
         }
 
         # Réécriture de l'adresse pour harmonisation
@@ -58,6 +60,7 @@ foreach ($mailbox in $mailboxes) {
         $signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
 
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
+        Write-Host "Template utilisé : $($signatureTemplate)"
 
         # Mise en place de la signature sur le compte
         Set-MailboxMessageConfiguration -Identity $user.UserPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
