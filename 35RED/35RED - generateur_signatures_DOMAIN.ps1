@@ -1,4 +1,5 @@
-﻿﻿# Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
+﻿﻿
+# Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
 $fseUsers = @(
     "elise.bocquel@ml-redon.com"
 )
