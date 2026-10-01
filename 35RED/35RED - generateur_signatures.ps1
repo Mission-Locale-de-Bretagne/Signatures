@@ -36,13 +36,6 @@ foreach ($user in $users) {
 		# reecriture de l'adresse pour harmonisation
         if ($user.Company -eq "Mission Locale du Pays de Redon et de Vilaine")
         {
-
-            $address = "Mission Locale du Pays de Redon et Vilaine"
-            $street = "3 rue Charles Sillard - CS 60287"
-            $postalcode = "35602"
-            $city = "Redon"
-            $phone = "02 99 72 19 50"
-
             Write-Host "Utilisateur trouvé"
 			
         } else {
@@ -63,17 +56,13 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 		$signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
 		
-		# Suppression de la ligne de téléphone mobile si le numéro est vide
-		if ([string]::IsNullOrEmpty($user.MobilePhone)) {
-			$signatureHTML = $signatureHTML.Replace(
-				'                Mobile : <span class="grey"></span><br>',
-				''
-			)
+		# Suppression de la ligne Mobile si aucun numéro n'est renseigné
+		if ([string]::IsNullOrWhiteSpace($user.MobilePhone)) {
+		    $signatureHTML = $signatureHTML -replace '(?m)^\s*Mobile\s*:.*<br>\s*\r?\n?', ''
 		}
 	} 
 }
 
-	
     # Output de l'utilisateur et du template utilisé
 	Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
 	Write-Host "Template utilisé : $($signatureTemplate)"
