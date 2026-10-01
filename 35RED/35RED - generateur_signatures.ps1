@@ -40,6 +40,7 @@ if ($user.Company -eq "Mission Locale du Pays de Redon et de Vilaine") {
   	$signatureHTML = $signatureHTML.Replace("{Title}", $user.Title) 
   
 # Suppression de la ligne Mobile si aucun numéro n'est renseigné
+# Sinon, remplacement du tag {MobilePhone} par le numéro de mobile si renseigné dans Azure/Entra AD
 if ([string]::IsNullOrWhiteSpace($user.MobilePhone)) {
   	$signatureHTML = $signatureHTML -replace '(?m)^\s*Mobile\s*:.*<br>\s*\r?\n?', ''
 } else {
