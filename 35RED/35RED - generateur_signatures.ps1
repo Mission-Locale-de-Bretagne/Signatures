@@ -13,7 +13,7 @@ Connect-ExchangeOnline -ShowBanner:$true
 
 # Input dans une variable de l'UPN de l'utilisateur
 $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
-# Cible le ou les utilisateurs concernés
+# Stockage dans la variable $user de l'utilisateur correspondant à l'UPN saisi, avec les propriétés nécessaires pour la signature
 $user = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 		
 # Modification du template pour les utilisateurs FSE si le UPN de l'utilisateur est dans la liste $fseUsers
