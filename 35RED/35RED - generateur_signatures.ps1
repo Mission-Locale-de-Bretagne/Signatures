@@ -49,6 +49,7 @@ foreach ($user in $users) {
 			Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
 			exit
         } 
+		
 		# Remplacement des tags dans le template par les valeurs correspondantes
 		$signatureHTML = $signatureHTML.Replace("{First name}", $user.firstname) 
 		$signatureHTML = $signatureHTML.Replace("{Last name}", $user.lastname) 
@@ -62,16 +63,16 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 		$signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
 		
+		# Suppression de la ligne de téléphone mobile si le numéro est vide
+		if ([string]::IsNullOrEmpty($user.MobilePhone)) {
+			$signatureHTML = $signatureHTML.Replace(
+				'                Mobile : <span class="grey">{MobilePhone}</span><br>',
+				''
+			)
+		}
 	} 
 }
 
-# Suppression de la ligne de téléphone mobile si le numéro est vide
-if ([string]::IsNullOrEmpty($user.MobilePhone)) {
-	$signatureHTML = $signatureHTML.Replace(
-		'                Mobile : <span class="grey">{MobilePhone}</span><br>',
-		''
-		)
-	}
 	
     # Output de l'utilisateur et du template utilisé
 	Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
