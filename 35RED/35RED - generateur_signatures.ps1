@@ -16,24 +16,23 @@ $userUPN = Read-Host "Saisir l'UPN de l'utilisateur"
 # Cible le ou les utilisateurs concernés
 $users = Get-User $userUPN | Select-Object firstname,lastname,title,phone,mobilephone,userprincipalname,streetaddress,postalcode,city,office,company
 
-# Chemin vers le template HTML
-# Chemin vers le template HTML
-$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
-$signatureTemplate = "Standard Redon"
 
 # Boucle pour chaque utilisateur
 foreach ($user in $users) { 
-
+	
 	# Verification qu'il s'agit bien d'un utilisateur
 	if ($user.firstname) {
 		
-		# Modification du template pour les utilisateurs FSE
+		# Modification du template pour les utilisateurs FSE si le UPN de l'utilisateur est dans la liste $fseUsers
         if ($fseUsers -contains $user.UserPrincipalName) {
-            $signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw
+			$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature_FSE.html" -raw
             $signatureTemplate = "FSE Redon" 
-        }
+        } else {	
+			$signatureHTML = Get-Content -Path "$scriptDirectory\35RED-template-signature.html" -raw
+			$signatureTemplate = "Standard Redon"
+		}
 
-		# reecriture de l'adresse pour harmonisation
+		# Output si l'utilisateur est trouvé ou non
         if ($user.Company -eq "Mission Locale du Pays de Redon et de Vilaine")
         {
             Write-Host "Utilisateur trouvé"
