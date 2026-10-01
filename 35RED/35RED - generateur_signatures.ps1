@@ -44,10 +44,9 @@ foreach ($user in $users) {
             $phone = "02 99 72 19 50"
 
             Write-Host "Utilisateur trouvé"
-			Write-Host "Template utilisé : $($signatureTemplate)"
-
+			
         } else {
-            Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
+			Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.firstname, $user.lastname)
 			exit
         } 
 		# Remplacement des tags dans le template par les valeurs correspondantes
@@ -62,11 +61,21 @@ foreach ($user in $users) {
 		$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
 		$signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.mobilephone)
 		$signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
-  
+		
 	} 
 }
 
+# Suppression de la ligne de téléphone mobile si le numéro est vide
+if ([string]::IsNullOrEmpty($user.MobilePhone)) {
+	$signatureHTML = $signatureHTML.Replace(
+		'                Mobile : <span class="grey">{MobilePhone}</span><br>',
+		''
+		)
+	}
+	
+    # Output de l'utilisateur et du template utilisé
 	Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.firstname, $user.lastname)
+	Write-Host "Template utilisé : $($signatureTemplate)"
 
 	# Mise en place de la signature sur le compte
 	Set-MailboxMessageConfiguration -Identity $users.userPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 

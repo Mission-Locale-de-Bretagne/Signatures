@@ -60,6 +60,15 @@ foreach ($mailbox in $mailboxes) {
         $signatureHTML = $signatureHTML.Replace("{MobilePhone}", $user.MobilePhone)
         $signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
 
+        # Suppression de la ligne de téléphone mobile si le numéro est vide
+        if ([string]::IsNullOrEmpty($user.MobilePhone)) {
+            $signatureHTML = $signatureHTML.Replace(
+                '                Mobile : <span class="grey">{MobilePhone}</span><br>',
+                ''
+            )
+        }
+
+        # Output de l'utilisateur et du template utilisé
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
         Write-Host "Template utilisé : $($signatureTemplate)"
 
