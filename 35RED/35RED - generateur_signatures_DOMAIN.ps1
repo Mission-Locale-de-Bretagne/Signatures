@@ -1,4 +1,4 @@
-﻿﻿
+﻿﻿Write-Host "Début du script"
 # Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
 $fseUsers = @(
     "elise.bocquel@ml-redon.com"
@@ -40,7 +40,7 @@ foreach ($mailbox in $mailboxes) {
             Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.FirstName, $user.LastName)
             continue
         }
-        
+
         # Remplacement des tags dans le template par les valeurs correspondantes
         $signatureHTML = $signatureHTML.Replace("{First name}", $user.FirstName) 
         $signatureHTML = $signatureHTML.Replace("{Last name}", $user.LastName) 
@@ -61,7 +61,7 @@ foreach ($mailbox in $mailboxes) {
 
         # Output de l'utilisateur et du template utilisé
         Write-Host ("Mise en place de la signature de : {0} {1}" -f $user.FirstName, $user.LastName)
-        Write-Host "Template utilisé : $($signatureTemplate)"
+        Write-Host "Template utilisé : $($signatureTemplate)`n" 
 
         # Mise en place de la signature sur le compte
         Set-MailboxMessageConfiguration -Identity $user.UserPrincipalName -signatureHTML $signatureHTML -AutoAddSignature $true -AutoAddSignatureOnReply $true 
