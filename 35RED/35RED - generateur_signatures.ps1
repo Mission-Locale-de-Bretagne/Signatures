@@ -66,7 +66,7 @@ foreach ($user in $users) {
 		# Suppression de la ligne de téléphone mobile si le numéro est vide
 		if ([string]::IsNullOrEmpty($user.MobilePhone)) {
 			$signatureHTML = $signatureHTML.Replace(
-				'                Mobile : <span class="grey">{MobilePhone}</span><br>',
+				'                Mobile : <span class="grey"></span><br>',
 				''
 			)
 		}
