@@ -1,7 +1,41 @@
-﻿# Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
+﻿# Author: Vincent MARIE & Vincent GROSJEAN
+# Version: 2.0.0
+# Date: 01/10/2026
+# Description: Deploys the signature for all users in the 35RED tenant, based on their attributes in Azure/Entra AD.
+# Purpose: Automate the deployment of email signatures
+# Scope: All 35RED user mailboxes
+# Effects: 
+# - Deploys email signatures for all users in the 35RED tenant based on their attributes in Azure/Entra AD.        
+# - If the user is in the $fseUsers list, a different template with an additional logo is used.
+#       
+# Modules: ExchangeOnlineManagement (tested with version 3.9.2)
+#
+# Custom modules: N/A
+#
+# Requirements : PowerShell => 7.6.x
+# Tested on:     PowerShell 7.6.6 (x64)
+
+################# CHANGELOG ##################
+# - 01/10/2026: Version 2.0.0 - Initial version of the script. It is based on the script developed by V.Marie for other structures,
+# 				and adapted to the 35RED structure by V.Grosjean, thence the increased number version despite the fact that it's the first one published. 
+
+# TODO: N/A
+
+############### PREREQUISITES ###############
+
+# The following Exchange Admin roles are required to run this script (in parentheses are the corresponding groups roles in the Exchange Admin Center):
+# - Mail Recipients ("Recipient Management", "Organization Management", "Gestion contacts et listes de distribution")
+# - User Options ("Help Desk", "Organization Management")
+
+############### VARIABLES ###############
+# Liste des utilisateurs FSE, disposant d'un template différent avec un logo en plus.
 $fseUsers = @(
     "elise.bocquel@ml-redon.com"
 )
+
+##############################################
+#    DO NOT EDIT ANYTHING BELOW THIS LINE    #
+##############################################
 
 # Définition de la variable du répertoire d'exécution du script
 $scriptPath = $MyInvocation.MyCommand.Path
