@@ -1,1 +1,9 @@
 Dossier spécifique à la ML de Redon
+
+Les personnes s'occupant du FSE disposent d'une signature spécifique avec un logo en plus.
+Les scripts déploient automatiquement la signature FSE aux personnes dont l'email est renseigné dans la liste
+en haut du script.
+Il est donc nécessaire de modifier chaque script pour mettre à jour la liste.
+
+Liste des membres FSE identifiés au 05/10/2026 :
+- Élise BOCQUEL (elise.bocquel@ml-redon.com)
