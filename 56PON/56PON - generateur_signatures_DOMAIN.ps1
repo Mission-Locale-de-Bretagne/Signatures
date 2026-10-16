@@ -19,7 +19,7 @@ Connect-ExchangeOnline -ShowBanner:$false
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@ml-cb.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "56PON"} | Select-Object UserPrincipalName
 
 # Boucle pour chaque utilisateur
-foreach ($mailbox in $mailboxes) {
+foreach ($mailbox in $mailboxes) { 
     # Récupération des informations de l'utilisateur à partir de Azure/Entra AD 
     $user = Get-User -Identity $mailbox.UserPrincipalName | Select-Object FirstName, LastName, Title, Phone, MobilePhone, UserPrincipalName, StreetAddress, PostalCode, City, Office, Company
            
@@ -36,6 +36,11 @@ foreach ($mailbox in $mailboxes) {
     # Vérification que l'utilisateur possède "Mission Locale du Pays de Redon et de Vilaine" dans la propriété "Company Name" sur Azure/Entra AD.
     if ($user.company -eq "Mission Locale Centre Bretagne")
     {
+        $address = "Mission Locale Centre Bretagne"
+        $street = "13bis Rue Saint-Jory"
+        $postalcode = "56300"
+        $city = "Pontivy"
+        $phone = "02 97 25 38 35" 
         Write-Host "Utilisateur trouvé"
     } else {
         Write-Host ("Erreur, aucune adresse ne correspond pour : {0} {1}" -f $user.FirstName, $user.LastName)
@@ -47,7 +52,13 @@ foreach ($mailbox in $mailboxes) {
     $signatureHTML = $signatureHTML.Replace("{Last name}", $user.LastName) 
     $signatureHTML = $signatureHTML.Replace("{Mail}", $user.userPrincipalName)
     $signatureHTML = $signatureHTML.Replace("{Title}", $user.Title) 
-    
+    $signatureHTML = $signatureHTML.Replace("{Address}", $address)
+    $SignatureHTML = $signatureHTML.Replace("{Building}",$building)
+	$signatureHTML = $signatureHTML.Replace("{Street}", $street) 
+	$signatureHTML = $signatureHTML.Replace("{PostalCode}", $postalcode) 
+	$signatureHTML = $signatureHTML.Replace("{City}", $city)  
+	$signatureHTML = $signatureHTML.Replace("{Phone}", $phone)  
+
 	# Suppression de la ligne Mobile si aucun numéro n'est renseigné
 	if ([string]::IsNullOrWhiteSpace($user.MobilePhone)) {
         $signatureHTML = $signatureHTML -replace '(?m)^\s*Mobile\s*:.*<br>\s*\r?\n?', ''
