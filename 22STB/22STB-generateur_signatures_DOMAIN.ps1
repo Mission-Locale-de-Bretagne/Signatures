@@ -1,19 +1,13 @@
 ﻿# Nécessite que le roaming soit desactivé :
 # Set-OrganizationConfig -PostponeRoamingSignaturesUntilLater:$true 
 
-#Définition de la variable du répertoire d'exécution du script
-$scriptPath = $MyInvocation.MyCommand.Path
-$scriptDirectory = Split-Path -Path $scriptPath -Parent
-
-# Connexion à Exchange Online
-Import-Module ExchangeOnlineManagement
-Connect-ExchangeOnline -ShowBanner:$true
+Connect-ExchangeOnline
 
 # Cible le ou les utilisateurs concernés
-$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mlstbrieuc.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "22STB"} | Select-Object UserPrincipalName
+$mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "thierry.ledu@mlstbrieuc.fr" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "22STB"} | Select-Object UserPrincipalName
 
 # Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\22STB-template-signature.html" -raw
+$templateSignatureHTML = Get-Content -Path "C:\Users\ThierryLEDÛ\Downloads\Signature_de_mail\22STB-template-signature.html" -raw
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
@@ -56,4 +50,4 @@ foreach ($mailbox in $mailboxes) {
     }
 }
 
-Disconnect-ExchangeOnline -Confirm:$false
+Disconnect-ExchangeOnline
