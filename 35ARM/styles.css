@@ -1,0 +1,51 @@
+<style>
+    table {
+        background-color: #ffffff;
+        padding: 5px 15px 5px 0;
+    }
+    
+    #texte {
+        padding-top: 0px; /* Ajusté pour un meilleur alignement */
+    }
+    
+    p {
+        font-size: 14px;
+        font-family: arial;
+        margin: 5px 0;
+        color: #2897D5;
+    }
+    
+    a {
+        color: #27afa5;
+        font-weight: bold;
+        text-decoration: none; /* Supprime le soulignement pour tous les états */
+    }
+    
+    a:hover {
+        color: #27afa5;
+        text-decoration: underline; /* Soulignement au survol si désiré */
+    }
+    
+    .big {
+        font-size: 15px;
+    }
+    
+    span {
+        padding-left: 2px;
+    }
+    
+    img {
+        position: relative;
+        top: 4px;
+        display: inline-block; /* Ajout pour aligner correctement les images */
+    }
+    
+    td#logo {
+        padding-right: 20px;
+        vertical-align: middle; /* Centrage vertical du logo */
+    }
+    
+    td {
+        vertical-align: top;
+    }
+    </style>
