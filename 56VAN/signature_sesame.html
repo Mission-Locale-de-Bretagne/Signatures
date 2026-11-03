@@ -1,213 +1,157 @@
-<style>
-    table {
-        background-color: #ffffff;
-        padding: 5px 15px 5px 0;
-        width: 620px;
-    }
-
-    #texte {
-        padding-top: 0px;
-        /* Ajusté pour un meilleur alignement */
-    }
-
-    p {
-        font-size: 13px;
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 5px 0;
-        color: #95c122;
-    }
-
-    .title {
-        font-family: Arial, Helvetica, sans-serif;
-        color: black;
-        width: 350;
-        font-size: 13px;
-    }
-
-
-    a {
-        color: #27afa5;
-        font-weight: bold;
-        text-decoration: none;
-        /* Supprime le soulignement pour tous les états */
-    }
-
-    a:hover {
-        opacity: 50%;
-        /* Soulignement au survol si désiré */
-    }
-
-    .big {
-        font-size: 15px;
-        font-family: 'Muli', Arial, sans-serif;
-    }
-
-    .bar {
-        /* padding-bottom: 15px; */
-        top: -4;
-        width: 375px;
-    }
-
-    span {
-        padding-left: 2px;
-    }
-
-    .adress {
-        color: black;
-        font-size: 13;
-        white-space: nowrap;
-    }
-
-    .mail {
-        font-family: 'Muli', Arial, sans-serif;
-        color: black;
-        font-weight: bolder;
-        font-size: 13;
-
-    }
-
-    .mobile,
-    .standard {
-        font-family: 'Muli', Arial, sans-serif;
-        color: #95c122;
-        font-size: 13.5;
-        font-weight: 500;
-    }
-
-
-    .phone {
-        color: black;
-    }
-
-    img {
-        position: relative;
-        top: 4px;
-        display: inline-block;
-        /* Ajout pour aligner correctement les images */
-    }
-
-    .socialmedia {
-        position: relative;
-        margin-top: 10px;
-        display: inline-block;
-        /* Ajout pour aligner correctement les images */
-    }
-
-    #bandeaufse {
-        margin-top: -5;
-        width: 620;
-        left: -10;
-    }
-
-    #logo {
-        text-align: end;
-        vertical-align: top;
-        /* Centrage vertical du logo */
-    }
-
-    #sesame {
-        margin-top: 11;
-    }
-
-    td {
-        vertical-align: top;
-    }
-
-    #rgpd {
-        padding-top: 10px;
-        font-size: 9px;
-        color: black;
-        width: 600px;
-        text-align: justify;
-    }
-
-    .linkrgpd {
-        font-weight: 700;
-        text-decoration: underline;
-        color: black;
-    }
-</style>
-
-
-<style type="text/css">
-    @import url('https://googleapis.com');
-
-    .signature-text {
-        font-family: 'Mulish', Arial, sans-serif !important;
-    }
-</style>
-
-<table>
+<table style="background-color:#ffffff;padding:5px 15px 5px 0;width:620px;">
     <tr>
 
-        <td id="texte">
-            <p>
-                <strong class="big">{First name} {Last name}</strong>
-            </p>
-            <p class="title">{Title}</p>
-            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/bar.svg?raw=true" alt="bar" class="bar">
-            <p>
-                <span class="mail">{Email}</span>
-            </p>
-            <p>
-                <span class="standard">Standard</span> <span class="phone">02 97 01 65 48</span>
+        <td style="padding-top:0px;vertical-align:top;">
 
+            <p style="font-size:13px;font-family:Arial,Helvetica,sans-serif;margin:5px 0;color:#95c122;">
+                <strong style="font-size:15px;font-family:Arial,Helvetica,sans-serif;">
+                    {First name} {Last name}
+                </strong>
+            </p>
+
+            <p style="font-family:Arial,Helvetica,sans-serif;color:black;font-size:13px;margin:5px 0;">
+                {Title}
+            </p>
+
+            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/bar.svg?raw=true"
+                 alt="bar"
+                 width="375"
+                 style="position:relative;top:-4px;display:inline-block;border:0;">
+
+            <p style="font-size:13px;font-family:Arial,Helvetica,sans-serif;margin:5px 0;color:#95c122;">
+                <span style="font-family:Arial,Helvetica,sans-serif;color:black;font-weight:bold;font-size:13px;">
+                    {Email}
+                </span>
+            </p>
+
+            <p style="font-size:13px;font-family:Arial,Helvetica,sans-serif;margin:5px 0;color:#95c122;">
+                <span style="font-family:Arial,Helvetica,sans-serif;color:#95c122;font-size:13.5px;font-weight:500;">
+                    Standard
+                </span>
+                <span style="color:black;">
+                    02 97 01 65 48
+                </span>
                 {MobileBlock}
             </p>
-            <p class="adress">
-                1 allée de Kérivarho - Zone du Prat - BP 257 - 56007 VANNES CEDEX</p>
-            <p class="socialmedia">
-                <a href="https://www.mlpvannes.org/">
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/web.png?raw=true"
-                        alt="Site Web" width="30" height="30">
-                </a>
 
-                <a href="https://www.linkedin.com/company/mission-locale-du-pays-de-vannes/">
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/linkedin.png?raw=true"
-                        alt="LinkedIn" width="30" height="30">
-                </a>
-                <a href="https://www.facebook.com/missionlocalevannes">
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/facebook.png?raw=true"
-                        alt="Facebook" width="30" height="30">
-                </a>
-                <a href="https://www.instagram.com/missionlocalevannes/">
-                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/insta.png?raw=true"
-                        alt="Instagram" width="30" height="30">
-
-                    <a href="https://www.youtube.com/@missionlocaledupaysdevanne9938">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/youtube.png?raw=true"
-                            alt="Youtube" width="30" height="30">
-                    </a>
-
-                    <a href="https://www.tiktok.com/@missionlocalevannes">
-                        <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/tiktok.png?raw=true"
-                            alt="TikTok" width="30" height="30">
-                    </a>
-
-                </a>
+            <p style="color:black;font-size:13px;white-space:nowrap;font-family:Arial,Helvetica,sans-serif;margin:5px 0;">
+                1 allée de Kérivarho - Zone du Prat - BP 257 - 56007 VANNES CEDEX
             </p>
+
+            <p style="margin-top:10px;display:inline-block;">
+
+                <a href="https://www.mlpvannes.org/" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/web.png?raw=true"
+                         alt="Site Web"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+                <a href="https://www.linkedin.com/company/mission-locale-du-pays-de-vannes/" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/linkedin.png?raw=true"
+                         alt="LinkedIn"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+                <a href="https://www.facebook.com/missionlocalevannes" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/facebook.png?raw=true"
+                         alt="Facebook"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+                <a href="https://www.instagram.com/missionlocalevannes/" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/insta.png?raw=true"
+                         alt="Instagram"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+                <a href="https://www.youtube.com/@missionlocaledupaysdevanne9938" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/youtube.png?raw=true"
+                         alt="Youtube"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+                <a href="https://www.tiktok.com/@missionlocalevannes" style="text-decoration:none;">
+                    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/tiktok.png?raw=true"
+                         alt="TikTok"
+                         width="30"
+                         height="30"
+                         style="position:relative;top:4px;display:inline-block;border:0;">
+                </a>
+
+            </p>
+
         </td>
-        <td id="logo">
-            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/logomlpvannes.svg?raw=true" alt="logomissionlocalevannes" height="165">
-            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/logosesame.svg?raw=true" id="sesame" alt="logomissionlocalevannes" height="40">
+
+        <td style="text-align:right;vertical-align:top;">
+
+            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/logomlpvannes.svg?raw=true"
+                 alt="Logo Mission Locale du Pays de Vannes"
+                 height="165"
+                 style="position:relative;top:4px;display:inline-block;border:0;">
+
+            <br>
+
+            <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/logosesame.svg?raw=true"
+                 alt="Logo Sésame"
+                 height="40"
+                 style="margin-top:11px;display:inline-block;border:0;">
+
         </td>
+
     </tr>
 </table>
 
-<img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/bandeaufse.svg?raw=true" id="bandeaufse" alt="" width="600">
+<img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Images/bandeaufse.svg?raw=true"
+     alt=""
+     width="600"
+     style="margin-top:-5px;margin-left:-10px;display:block;border:0;">
 
-<p id="rgpd" style="max-width:600px; width:100%;">
+<p style="padding-top:10px;
+          font-size:9px;
+          color:black;
+          width:600px;
+          max-width:600px;
+          text-align:justify;
+          font-family:Arial,Helvetica,sans-serif;
+          margin:5px 0;">
+
     <strong>Mission Locale du Pays de Vannes protège vos données !</strong>
-    Vous recevez ce mail en tant que personne enregistrée dans notre base de contact.</br>
-    En cas d'erreur de destinataire ou pour toute demande visant à assurer l'exercice de vos droits sur vos données
-    personnelles, merci de vous adresser à notre </br> délégué(e) à la protection des données : <a href="mailto:rgpd@mlpv.org"
-        class="linkrgpd">rgpd@mlpv.org</a>.
-    Vous pouvez aussi consulter notre <a href="https://www.mlpvannes.org/14949-2/" class="linkrgpd">politique de
-        confidentialité.</href>
+    Vous recevez ce mail en tant que personne enregistrée dans notre base de contact.<br>
+
+    En cas d'erreur de destinataire ou pour toute demande visant à assurer l'exercice de vos droits sur vos données personnelles, merci de vous adresser à notre délégué(e) à la protection des données :
+
+    <a href="mailto:rgpd@mlpv.org"
+       style="font-weight:700;text-decoration:underline;color:black;">
+        rgpd@mlpv.org
+    </a>.
+
+    Vous pouvez aussi consulter notre
+
+    <a href="https://www.mlpvannes.org/14949-2/"
+       style="font-weight:700;text-decoration:underline;color:black;">
+        politique de confidentialité
+    </a>.
+
 </p>
-<p>
-    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Bandeau-mail-2026.png?raw=true">
+
+<p style="margin:5px 0;">
+    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Bandeau-mail-2026.png?raw=true"
+         alt=""
+         style="display:block;border:0;max-width:600px;">
 </p>
-<p>
-    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Banniere_mail_Mission_jeunes_2026.png?raw=true">
+
+<p style="margin:5px 0;">
+    <img src="https://github.com/Mission-Locale-de-Bretagne/Signatures/blob/main/56VAN/Banniere_mail_Mission_jeunes_2026.png?raw=true"
+         alt=""
+         style="display:block;border:0;max-width:600px;">
 </p>
