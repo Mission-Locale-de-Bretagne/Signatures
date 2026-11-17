@@ -12,8 +12,9 @@ Connect-ExchangeOnline -ShowBanner:$true
 # Cible le ou les utilisateurs concernés
 $mailboxes = Get-ExoMailBox -Filter {UserPrincipalName -like "*@mlstmalo.bzh" -and RecipientTypeDetails -eq 'UserMailbox' -and CustomAttribute15 -eq "35STM"} | Select-Object UserPrincipalName
 
-# Chemin vers le template HTML
-$templateSignatureHTML = Get-Content -Path "$scriptDirectory\35STM-template-signature.html" -raw
+# Source du template HTML depuis GitHub
+$templateUrl = "https://raw.githubusercontent.com/Mission-Locale-de-Bretagne/Signatures/main/35STM/35STM-template-signature.html"
+$templateSignatureHTML = (Invoke-WebRequest -Uri $templateUrl -UseBasicParsing).Content
 
 # Boucle pour chaque utilisateur
 foreach ($mailbox in $mailboxes) { 
