@@ -1,4 +1,4 @@
-Repo contenant les divers éléments pour la génération des signatures mail de chacune des structures
+Repo contenant les divers éléments pour la génération des signatures mail de chacune des structures <br/>
 Chaque structure est responsable du déploiement de ses signatures (hors structures infogérées ou cas de force majeure nécessitant une continuité de service)
 
 Liste des ML utilisant le modèle/template de signature fourni par l'ARML au 29/09/2026 :
